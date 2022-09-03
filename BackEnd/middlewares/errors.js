@@ -32,6 +32,9 @@ if (process.env.NODE_ENV === 'PRODUCTION'){
     
          error= new ErrorHandler(message, 400)
       }
+    if (err.code===11000){
+        error= new ErrorHandler(`Duplicated ${Object.keys(err.keyValue)} is entered`,400)
+    }
     
 
 

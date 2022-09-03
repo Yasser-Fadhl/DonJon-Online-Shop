@@ -1,14 +1,16 @@
 const express=require('express')
 const router= express.Router();
-const{getProducts,getOneProduct,newProducts,updateProduct,deleteProduct}=require('../controllers/productsControllers')
-
+const{getProducts,getOneProduct,newProducts,updateProduct,deleteProduct, updateReview, deleteReview, allReviews}=require('../controllers/productsControllers')
+const {isAuthenticated,authorizedRoles}=require('../middlewares/auth')
 router.route('/products').get(getProducts)
-router.route('/products/new').post(newProducts)
+router.route('/products/new').post(isAuthenticated,authorizedRoles('admin'),newProducts)
 router.route('/products/:id').get(getOneProduct)
 router.route('/admin/products/:id')
-                .put(updateProduct)
-                .delete(deleteProduct)
+                .put(isAuthenticated,authorizedRoles('admin'),updateProduct)
+                .delete(isAuthenticated,authorizedRoles('admin'),deleteProduct)
+router.route('/product/review').put(isAuthenticated,updateReview)
 
-
+router.route('/product/reviews').get(isAuthenticated,allReviews)
+                                .delete(isAuthenticated,deleteReview)
 module.exports=router;
 

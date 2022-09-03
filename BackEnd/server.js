@@ -6,18 +6,18 @@ process.on('uncaughtException', function(err) {
     console.log('Server is shutting down due to uncaught Exception');
         process.exit(1);
  });
-dotenv.config({path:'BackEnd/.gitignore/config/config.env'});
+dotenv.config({path:'BackEnd/config/config.env'});
 const app= require('./app')
 
 const port= process.env.PORT ||6000
-const DatabaseConnection=require('./config/database')
+const DatabaseConnection=require('./database')
 DatabaseConnection();
 const server=app.listen(port, ()=>{
 console.log(`Server is started on ${port} on ${process.env.NODE_ENV} mode`);
     
 })
 process.on('unhandledRejection', (err)=>{
-        console.log(`Error: ${err.message}`);
+        console.log(`Error: ${err.stack}`);
         console.log('Server is shutting down due to unhandled Promise Rejection');
         server.close(()=>{
             process.exit(1);
