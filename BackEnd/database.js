@@ -8,14 +8,6 @@ const  DatabaseConnection= async()=>{
     //.catch(ex=>{
        // console.log(""+ex);
    // })
-//     const productSchema = new mongoose.Schema({
-//      name: String,
-//      model: String
-//     })
-//     const product = mongoose.model('Product', productSchema)
-//      const Shirt= new product({name:'Polo',
-//     model:'426386272dsmxnw2'})
-// Shirt.save()
 
     
 }
