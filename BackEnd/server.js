@@ -1,25 +1,28 @@
-const dotenv=require('dotenv')
-process.on('uncaughtException', function(err) { 
-    if (process.env.NODE_ENV === 'PRODUCTION') {console.log(err.message)}
-    if (process.env.NODE_ENV === 'DEVELOPMENT'){console.log(err.stack)}
-   
-    console.log('Server is shutting down due to uncaught Exception');
-        process.exit(1);
- });
-dotenv.config({path:'BackEnd/config/config.env'});
-const app= require('./app')
+const dotenv = require("dotenv");
+process.on("uncaughtException", function (err) {
+  if (process.env.NODE_ENV === "PRODUCTION") {
+    console.log(err.message);
+  }
+  if (process.env.NODE_ENV === "DEVELOPMENT") {
+    console.log(err.stack);
+  }
 
-const port= process.env.PORT ||6000
-const DatabaseConnection=require('./database')
+  console.log("Server is shutting down due to uncaught Exception");
+  process.exit(1);
+});
+dotenv.config({ path: "BackEnd/config/config.env" });
+const app = require("./app");
+
+const port = process.env.PORT || 6000;
+const DatabaseConnection = require("./database");
 DatabaseConnection();
-const server=app.listen(port, ()=>{
-console.log(`Server is started on ${port} on ${process.env.NODE_ENV} mode`);
-    
-})
-process.on('unhandledRejection', (err)=>{
-        console.log(`Error: ${err.stack}`);
-        console.log('Server is shutting down due to unhandled Promise Rejection');
-        server.close(()=>{
-            process.exit(1);
-        });
-})
+const server = app.listen(port, () => {
+  console.log(`Server is started on ${port} on ${process.env.NODE_ENV} mode`);
+});
+process.on("unhandledRejection", (err) => {
+  console.log(`Error: ${err.stack}`);
+  console.log("Server is shutting down due to unhandled Promise Rejection");
+  server.close(() => {
+    process.exit(1);
+  });
+});
