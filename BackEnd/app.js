@@ -5,7 +5,9 @@ const products = require("./routes/products");
 const orders = require("./routes/orders");
 const errorsMiddleware = require("./middlewares/errors");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use("/api/v1", products);

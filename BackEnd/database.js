@@ -7,11 +7,11 @@ const DatabaseConnection = async () => {
       useCreateIndex: true,
     })
     //mongodb+srv://YasserFadhl:yasoory1996@cluster0.feh0e.mongodb.net/test
-    .then((c) => {
+    .then(() => {
       console.log("DataBase is Connected");
+    })
+    .catch((ex) => {
+      throw new Error(ex);
     });
-  //.catch(ex=>{
-  // console.log(""+ex);
-  // })
 };
 module.exports = DatabaseConnection;
