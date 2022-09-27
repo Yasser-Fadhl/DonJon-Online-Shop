@@ -6,7 +6,7 @@ const Product = ({ product }) => {
       <div className="card p-3 rounded">
         <img
           className="card-img-top mx-auto"
-          src={"https://m.media-amazon.com/images/I/617NtexaW2L._AC_UY218_.jpg"}
+          src={product.images[0].url}
           alt="product"
         />
         <div className="card-body d-flex flex-column">
@@ -21,7 +21,7 @@ const Product = ({ product }) => {
               ></div>
             </div>
             <br></br>
-            <span id="no_of_reviews">({product.numOfReviews}Reviews)</span>
+            <span id="no_of_reviews">({product.numOfReviews} Reviews)</span>
           </div>
           <p className="card-text">${product.price}</p>
           <Link

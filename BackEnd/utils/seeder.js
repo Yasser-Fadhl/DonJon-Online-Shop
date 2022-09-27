@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const products = require("../data/products");
+const products = require("../data/productsCopy");
 const dotenv = require("dotenv");
 dotenv.config({ path: "BackEnd/config/config.env" });
 const DatabaseConnection = require("../database");
