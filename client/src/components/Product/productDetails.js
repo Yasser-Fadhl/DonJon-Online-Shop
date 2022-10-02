@@ -5,7 +5,6 @@ import MetaData from "../layout/MetaData";
 import Loader from "../layout/loader";
 import { getProductDetails, clearError } from "../actions/productsActions";
 import { useDispatch, useSelector } from "react-redux";
-
 const ProductDetails = ({ match }) => {
   const dispatch = useDispatch();
   const { product, loading, error } = useSelector(
@@ -34,7 +33,7 @@ const ProductDetails = ({ match }) => {
                     <Carousel.Item key={image.public_id}>
                       <img
                         src={image.url}
-                        className="d-block w-100"
+                        className="d-block w-10"
                         alt={image.name}
                       />
                     </Carousel.Item>

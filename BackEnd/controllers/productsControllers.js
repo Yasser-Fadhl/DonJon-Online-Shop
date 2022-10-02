@@ -5,14 +5,15 @@ const ApiFeatures = require("../utils/apiFeatures");
 const cloudinary = require("cloudinary");
 
 exports.getProducts = catchAsyncErrors(async (req, res, next) => {
-  const resPerPage = 8;
+  const resPerPage = 4;
   const apiFeatures = new ApiFeatures(Product.find(), req.query)
     .search()
-    .filter()
-    .pagination(resPerPage);
+    .filter();
+  let products = await apiFeatures.query;
+  const filteredProductsCount = products.length;
   const productsCount = await Product.countDocuments();
-
-  const products = await apiFeatures.query;
+  apiFeatures.pagination(resPerPage);
+  products = await apiFeatures.query;
   if (products.length === 0)
     return next(new ErrorHandler("Product not found", 404));
   res.status(200).json({
@@ -20,8 +21,8 @@ exports.getProducts = catchAsyncErrors(async (req, res, next) => {
     count: products.length,
     productsCount,
     products,
-    //:[{name:products.map(el=>el.name)
-    // ,price:products.map(el=>el.price)}]
+    resPerPage,
+    filteredProductsCount,
   });
 });
 exports.newProducts = catchAsyncErrors(async (req, res, next) => {
@@ -109,7 +110,6 @@ exports.updateReview = catchAsyncErrors(async (req, res, next) => {
   } else {
     product.reviews.push(review);
     product.numOfReviews = product.reviews.length;
-    console.log;
   }
   product.ratings =
     product.reviews.reduce((acc, item) => {

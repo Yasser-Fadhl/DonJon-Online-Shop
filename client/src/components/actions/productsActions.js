@@ -8,18 +8,26 @@ import {
   PRODUCT_DETAILS_SUCCESS,
   CLEAR_ERROR,
 } from "../constants/prodReducerConstants";
-
-export const getAllProducts = () => async (dispatch) => {
+export const getAllProducts = (
+  keyword = "",
+  currentPage = 1,
+  price,
+  category
+) => async (dispatch) => {
   try {
     dispatch({ type: ALL_PRODUCT_REQUEST });
-    const { data } = await axios.get("http://127.0.0.1:4000/api/v1/products");
+    let url = `http://127.0.0.1:4000/api/v1/products?keyword=${keyword}&page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}`;
+    if (category) {
+      url = `${url}&category=${category}`;
+    }
+    const { data } = await axios.get(url);
 
     dispatch({
       type: ALL_PRODUCT_SUCCESS,
       payload: data,
     });
   } catch (error) {
-    dispatch({ type: ALL_PRODUCT_FAIL, payload: error.message });
+    dispatch({ type: ALL_PRODUCT_FAIL, payload: error.response.data.Message });
   }
 };
 
@@ -36,10 +44,13 @@ export const getProductDetails = (id) => async (dispatch) => {
       payload: data.product,
     });
   } catch (error) {
-    dispatch({ type: PRODUCT_DETAILS_FAIL, payload: error.message });
+    dispatch({
+      type: PRODUCT_DETAILS_FAIL,
+      payload: error.response.data.Message,
+    });
   }
 };
 
-export const clearError = (dispatch) => {
+export const clearError = () => (dispatch) => {
   dispatch({ type: CLEAR_ERROR });
 };

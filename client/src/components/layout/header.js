@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
-
+import Search from "./search";
+import { Route, Link } from "react-router-dom";
 const Header = () => {
   return (
     <div>
@@ -7,31 +8,26 @@ const Header = () => {
         <nav className="navbar row">
           <div className="col-12 col-md-3">
             <div className="navbar-brand">
-              <img src="/images/shopit_logo.png" alt="logo" />
+              <Link to="/">
+                <img src="/images/shopit_logo.png" alt="logo" />
+              </Link>
             </div>
           </div>
 
           <div className="col-12 col-md-6 mt-2 mt-md-0">
-            <div className="input-group">
-              <input
-                type="text"
-                id="search_field"
-                className="form-control"
-                placeholder="Search"
-              />
-              <div className="input-group-append">
-                <button className="btn" id="search_button">
-                  <i className="fa fa-search" aria-hidden="true"></i>
-                </button>
-              </div>
-            </div>
+            <Route render={({ history }) => <Search history={history} />} />
           </div>
 
-          <div className="col-12 col-md-3 mt-4 mt-md-0 text-center">
-            <div className="btn ml-4 " id="login_btn">
+          <div className="col-12 col-md-3 mr-5 mt-4 mt-md-0 text-center">
+            <Link
+              to="/login"
+              className="btn ml-4"
+              style={{ marginRight: "10px" }}
+              id="login_btn"
+            >
               Login
-            </div>
-            <span id="cart" className="ml-3">
+            </Link>
+            <span id="cart" className="ml-3 ">
               Cart
             </span>
             <span className="ml-1" id="cart_count">

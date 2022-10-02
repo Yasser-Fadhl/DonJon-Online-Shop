@@ -8,8 +8,9 @@ import { positions, transitions, Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 const options = {
   position: positions.TOP_CENTER,
-  transition: transitions.SCALE,
+  transition: transitions.FADE,
   timeout: 5000,
+  offset: "0px",
 };
 ReactDOM.render(
   <Provider store={store}>
