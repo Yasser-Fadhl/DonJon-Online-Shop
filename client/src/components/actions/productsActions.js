@@ -27,7 +27,7 @@ export const getAllProducts = (
       payload: data,
     });
   } catch (error) {
-    dispatch({ type: ALL_PRODUCT_FAIL, payload: error.response.data.Message });
+    dispatch({ type: ALL_PRODUCT_FAIL, payload: error.response });
   }
 };
 

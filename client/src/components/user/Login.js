@@ -19,7 +19,7 @@ const Login = ({ history }) => {
       alert.error(error);
       dispatch(clearError());
     }
-  }, [dispatch, loading, alert, error, authenticated, history]);
+  }, [dispatch, loading, alert, authenticated, history]);
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(login(email, password));

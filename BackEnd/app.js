@@ -9,8 +9,12 @@ const auth = require("./routes/auth");
 const products = require("./routes/products");
 const orders = require("./routes/orders");
 const errorsMiddleware = require("./middlewares/errors");
-
-app.use(cors());
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 app.use(fileUpload());

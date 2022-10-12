@@ -5,6 +5,11 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
+  LOAD_USER_REQUEST,
+  LOAD_USER_SUCCESS,
+  LOAD_USER_FAIL,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAIL,
   CLEAR_ERROR,
 } from "../constants/userReducerConstants";
 import Axios from "axios";
@@ -55,6 +60,55 @@ export const register = (userData) => async (dispatch) => {
     });
   }
 };
+
+export const loadUser = () => async (dispatch) => {
+  try {
+    dispatch({ type: LOAD_USER_REQUEST });
+    const { data } = await Axios.get("http://127.0.0.1:4000/api/v1/me", {
+      // withCredentials: true,
+      origin: "http://localhost:3000",
+
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Credentials": true,
+        "Access-Control-Allow-Origin": " http://localhost:3000",
+      },
+    });
+    dispatch({
+      type: LOAD_USER_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: LOAD_USER_FAIL,
+      payload: error.response.data.Message,
+    });
+  }
+};
+export const logOut = () => async (dispatch) => {
+  try {
+    dispatch({ type: LOAD_USER_REQUEST });
+    const { data } = await Axios.get("http://127.0.0.1:4000/api/v1/logout", {
+      // withCredentials: true,
+      origin: "http://localhost:3000",
+
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Credentials": true,
+        "Access-Control-Allow-Origin": " http://localhost:3000",
+      },
+    });
+    dispatch({
+      type: LOGOUT_SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: LOGOUT_FAIL,
+      payload: error.response.data.Message,
+    });
+  }
+};
+
 export const clearError = () => (dispatch) => {
   dispatch({ type: CLEAR_ERROR });
 };
